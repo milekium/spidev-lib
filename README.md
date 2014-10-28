@@ -7,7 +7,7 @@ for the pyA20 python library https://pypi.python.org/pypi/pyA20
 
 Warning
 -------
-if you want other user than root have access to spidev device you may probablu need to add a file with the following udev rules in your /etc/udev.d directory. 
+if you want other user than root have access to spidev device you may probably need to add a file with the following udev rules in your /etc/udev.d directory. 
 
 KERNEL=="spidev*", SUBSYSTEM=="spidev", GROUP="spi", MODE="0660"
 
