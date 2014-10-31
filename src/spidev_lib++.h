@@ -48,6 +48,7 @@ int m_spifd;
 spi_config_t m_spiconfig;
 bool m_open;
 public:
+        SPI(const char * p_spidev);
         SPI(const char * p_spidev, spi_config_t *p_spi_config);
         ~SPI();
         bool begin();
@@ -58,6 +59,7 @@ public:
         bool setSpeed(uint32_t p_speed);
         bool setMode(uint8_t p_mode);
         bool setBitPerWord(uint8_t p_bit);
+	bool setConfig(spi_config_t *p_spi_config);
 
 };
 

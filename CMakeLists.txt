@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 
 project(spidev-lib)
 set(CMAKE_CXX_FLAGS "-g -Wall")
+set(CMAKE_C_FLAGS "-g -Wall")
 
 include_directories(src/)
 

@@ -109,7 +109,8 @@ bool SPI::begin(){
     /* open spidev device */
     if (m_open == true )
        return true;
-
+    if (m_spidev == NULL)
+       return false;
     m_spifd = open(m_spidev, O_RDWR);
   
     if (m_spifd < 0) {
@@ -151,8 +152,18 @@ bool SPI::begin(){
 
   
 }
-SPI::SPI(const char * p_spidev, spi_config_t *p_spi_config){
+SPI::SPI(const char * p_spidev){
+  m_spidev = NULL;
+  if (p_spidev != NULL ){
+      m_spidev = (char *)malloc(strlen(p_spidev)+1);
+      if (m_spidev != NULL) 
+         strcpy(m_spidev,p_spidev);
+  }
+   m_open = false;
 
+}
+SPI::SPI(const char * p_spidev, spi_config_t *p_spi_config){
+  m_spidev = NULL;
   if (p_spidev != NULL ){
       m_spidev = (char *)malloc(strlen(p_spidev)+1);
       if (m_spidev != NULL) 
@@ -180,6 +191,46 @@ SPI::~SPI(){
       close(m_spifd);
 }
 
+
+bool SPI::setConfig(spi_config_t *p_spi_config){
+  if (p_spi_config != NULL){
+	memcpy(&m_spiconfig,p_spi_config,sizeof(spi_config_t));
+        if (m_open){
+         /* Set SPI_POL and SPI_PHA */
+          if (ioctl(m_spifd, SPI_IOC_WR_MODE, &m_spiconfig.mode) < 0) {
+            close(m_spifd);
+           return false;
+          }
+          if (ioctl(m_spifd, SPI_IOC_RD_MODE, &m_spiconfig.mode) < 0) {
+             close(m_spifd);
+          return false;
+          }
+
+        /* Set bits per word*/
+          if (ioctl(m_spifd, SPI_IOC_WR_BITS_PER_WORD, &m_spiconfig.bits_per_word) < 0) {
+             close(m_spifd);
+          return false;
+          }
+          if (ioctl(m_spifd, SPI_IOC_RD_BITS_PER_WORD, &m_spiconfig.bits_per_word) < 0) {
+             close(m_spifd);
+          return false;
+          }
+  
+        /* Set SPI speed*/
+          if (ioctl(m_spifd, SPI_IOC_WR_MAX_SPEED_HZ, &m_spiconfig.speed) < 0) {
+             close(m_spifd);
+          return false;
+          } 
+          if (ioctl(m_spifd, SPI_IOC_RD_MAX_SPEED_HZ, &m_spiconfig.speed) < 0) {
+             close(m_spifd);
+          return false;
+          }
+        return true;
+        }
+   }
+  return false;
+
+}
 
 
 

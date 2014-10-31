@@ -18,7 +18,7 @@ int  main( void)
   spi_config.delay=0;
   spi_config.bits_per_word=8;
 
-  mySPI=new SPI("/dev/spidev2.0",&spi_config);
+  mySPI=new SPI("/dev/spidev1.0",&spi_config);
 
   if (mySPI->begin())
   {
