@@ -76,7 +76,7 @@ bool SPI::setMode(uint8_t p_mode){
 
 }
 
-int SPI::xfer(uint8_t *p_txbuffer, uint8_t p_txlen, uint8_t *p_rxbuffer, uint8_t p_rxlen){
+int SPI::xfer(uint8_t *p_txbuffer, uint32_t p_txlen, uint8_t *p_rxbuffer, uint32_t p_rxlen){
     struct spi_ioc_transfer spi_message[1];
     memset(spi_message, 0, sizeof(spi_message));
     
@@ -86,7 +86,7 @@ int SPI::xfer(uint8_t *p_txbuffer, uint8_t p_txlen, uint8_t *p_rxbuffer, uint8_t
     return ioctl(m_spifd, SPI_IOC_MESSAGE(1), spi_message);
 }
 
-int SPI::write(uint8_t *p_txbuffer,uint8_t p_txlen){
+int SPI::write(uint8_t *p_txbuffer, uint32_t p_txlen){
     struct spi_ioc_transfer spi_message[1];
     memset(spi_message, 0, sizeof(spi_message));
     spi_message[0].tx_buf = (unsigned long)p_txbuffer;
@@ -96,7 +96,7 @@ int SPI::write(uint8_t *p_txbuffer,uint8_t p_txlen){
 
 }
 
-int SPI::read(uint8_t *p_rxbuffer,uint8_t p_rxlen){
+int SPI::read(uint8_t *p_rxbuffer, uint32_t p_rxlen){
     struct spi_ioc_transfer spi_message[1];
     memset(spi_message, 0, sizeof(spi_message));
     

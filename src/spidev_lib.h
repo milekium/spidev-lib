@@ -39,9 +39,9 @@ typedef struct {
 
 int spi_open(char *device, spi_config_t config);
 int spi_close(int fd);
-int spi_xfer(int fd, uint8_t *tx_buffer, uint8_t tx_len, uint8_t *rx_buffer, uint8_t rx_len);
-int spi_read(int fd, uint8_t *rx_buffer, uint8_t rx_len);
-int spi_write(int fd, uint8_t *tx_buffer, uint8_t tx_len);
+int spi_xfer(int fd, uint8_t *tx_buffer, uint32_t tx_len, uint8_t *rx_buffer, uint32_t rx_len);
+int spi_read(int fd, uint8_t *rx_buffer, uint32_t rx_len);
+int spi_write(int fd, uint8_t *tx_buffer, uint32_t tx_len);
 #ifdef __cplusplus
 }
 #endif
