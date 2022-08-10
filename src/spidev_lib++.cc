@@ -54,7 +54,7 @@ bool SPI::setSpeed(uint32_t p_speed){
         return false;
     }
 
-   m_spiconfig.mode = p_speed;
+   m_spiconfig.speed = p_speed;
 
   return true;
 
