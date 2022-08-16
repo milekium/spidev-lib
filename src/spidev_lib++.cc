@@ -77,13 +77,14 @@ bool SPI::setMode(uint8_t p_mode){
 }
 
 int SPI::xfer(uint8_t *p_txbuffer, uint8_t p_txlen, uint8_t *p_rxbuffer, uint8_t p_rxlen){
-    struct spi_ioc_transfer spi_message[1];
+    struct spi_ioc_transfer spi_message[2];
     memset(spi_message, 0, sizeof(spi_message));
     
-    spi_message[0].rx_buf = (unsigned long)p_rxbuffer;
     spi_message[0].tx_buf = (unsigned long)p_txbuffer;
     spi_message[0].len = p_txlen;
-    return ioctl(m_spifd, SPI_IOC_MESSAGE(1), spi_message);
+    spi_message[1].rx_buf = (unsigned long)p_rxbuffer;
+    spi_message[1].len = p_rxlen;
+    return ioctl(m_spifd, SPI_IOC_MESSAGE(2), spi_message);
 }
 
 int SPI::write(uint8_t *p_txbuffer,uint8_t p_txlen){
