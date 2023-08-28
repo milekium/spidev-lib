@@ -77,7 +77,7 @@ int spi_close(int fd) {
     return close(fd);
 }
 
-int spi_xfer(int fd, uint8_t *tx_buffer, uint8_t tx_len, uint8_t *rx_buffer, uint8_t rx_len){
+int spi_xfer(int fd, uint8_t *tx_buffer, uint32_t tx_len, uint8_t *rx_buffer, uint32_t rx_len){
     struct spi_ioc_transfer spi_message[1];
     memset(spi_message, 0, sizeof(spi_message));
     
@@ -88,7 +88,7 @@ int spi_xfer(int fd, uint8_t *tx_buffer, uint8_t tx_len, uint8_t *rx_buffer, uin
     return ioctl(fd, SPI_IOC_MESSAGE(1), spi_message);
 }
 
-int spi_read(int fd, uint8_t *rx_buffer, uint8_t rx_len){
+int spi_read(int fd, uint8_t *rx_buffer, uint32_t rx_len){
     struct spi_ioc_transfer spi_message[1];
     memset(spi_message, 0, sizeof(spi_message));
     
@@ -99,7 +99,7 @@ int spi_read(int fd, uint8_t *rx_buffer, uint8_t rx_len){
     return ioctl(fd, SPI_IOC_MESSAGE(1), spi_message);
 }
 
-int spi_write(int fd, uint8_t *tx_buffer, uint8_t tx_len){
+int spi_write(int fd, uint8_t *tx_buffer, uint32_t tx_len){
     struct spi_ioc_transfer spi_message[1];
     memset(spi_message, 0, sizeof(spi_message));
     

@@ -53,9 +53,9 @@ public:
         ~SPI();
         bool begin();
         bool end();
-        int read(uint8_t *p_rxbuffer,uint8_t p_rxlen);
-        int write(uint8_t *p_txbuffer,uint8_t p_txlen);
-        int xfer(uint8_t *p_txbuffer, uint8_t p_txlen, uint8_t *p_rxbuffer, uint8_t p_rxlen);
+        int read(uint8_t *p_rxbuffer, uint32_t p_rxlen);
+        int write(uint8_t *p_txbuffer, uint32_t p_txlen);
+        int xfer(uint8_t *p_txbuffer, uint32_t p_txlen, uint8_t *p_rxbuffer, uint32_t p_rxlen);
         bool setSpeed(uint32_t p_speed);
         bool setMode(uint8_t p_mode);
         bool setBitPerWord(uint8_t p_bit);
